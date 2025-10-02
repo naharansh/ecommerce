@@ -4,14 +4,26 @@ const cookieParser=require('cookie-parser')
 const sequelize = require("./config/db");
 const  route  = require('./routes/routes');
 const vroutes=require('./routes/vroutes.js')
+const proutes=require('./routes/proutes.js')
+const sroutes=require('./routes/Sku.js')
+const pproutes=require('./routes/productM.js')
+const croutes=require('./routes/categories.js')
+const rroutes=require('./routes/review.js')
+const uroutes=require('./routes/utils.js')
+const nroutes=require('./routes/notification.js')
 const app=express()
 app.use(express.json())
 app.use(cookieParser())
 const PORT=process.env.PORT ||8080
-// ConnectionDb()
+app.use('/api/v1',sroutes)
 app.use('/api/v1/auth',route)
 app.use('/api/v1/auth',vroutes)
-
+app.use('/api/v1',proutes)
+app.use('/api/v1',pproutes)
+app.use('/api/v1',croutes)
+app.use('/api/v1',rroutes)
+app.use('/api/v1',uroutes)
+app.use('/api/v1',nroutes)
 sequelize.sync({ alter: true })
   .then(() => console.log("✅ Tables synced"))
   .catch(err => console.error("❌ Sync error:", err));

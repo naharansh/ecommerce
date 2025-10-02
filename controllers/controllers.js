@@ -70,6 +70,7 @@ exports.Login = async (req, res, next) => {
             })
         }
         const token = signToken(result.user_id, result.role)
+        console.log(token)
         res.cookie('token', token, { httpOnly: true, secure: true });
         res.json({
             status: 'success',
@@ -83,41 +84,7 @@ exports.Login = async (req, res, next) => {
         })
     }
 }
-exports.Protected = async (req, res, next) => {
-    try {
-        // 1. Get token from cookie
-        const token = req.cookies?.token;
-        console.log(token)
-        if (!token) {
-            return res.status(401).json({
-                status: 'error',
-                message: 'Token is missing'
-            });
-        }
 
-        // 2. Verify token
-        const decoded = await utils.promisify(jsonWebToken.verify)(token, process.env.JWT_SECRET);
-        console.log(decoded)
-        // 3. Find user by decoded key
-        const user = await User.findByPk(decoded.key);
-        console.log(user)
-        if (!user) {
-            return res.status(404).json({
-                status: 'error',
-                message: 'User not found'
-            });
-        }
-
-        // 4. Attach user to request object
-        req.users = user.toJSON();
-        console.log(req.users)
-
-        next();
-    } catch (error) {
-        console.error(error);
-        res.status(403).json({ status: 'error', message: 'Invalid token' });
-    }
-}
 exports.GetDetails = async (req, res) => {
     console.log(req.users)
     try {
