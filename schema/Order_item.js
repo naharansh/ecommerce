@@ -45,7 +45,7 @@ const OrderItem = sequelize.define('order_item', {
         allowNull: true,
         references: {
             model: Order,
-            key: "id",
+            key: "order_id",
         },
         validate: {
             notSelf(value) {

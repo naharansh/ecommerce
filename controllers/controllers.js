@@ -71,7 +71,7 @@ exports.Login = async (req, res, next) => {
         }
         const token = signToken(result.user_id, result.role)
         console.log(token)
-        res.cookie('token', token, { httpOnly: true, secure: true });
+        res.cookie('token', token, { httpOnly: false, secure: false });
         res.json({
             status: 'success',
 

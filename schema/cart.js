@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 const User = require("./users");
+// const CartItems = require("./cartItems");
 
 const Cart = sequelize.define('Cart', {
     cart_id: {
@@ -33,6 +34,8 @@ const Cart = sequelize.define('Cart', {
     updatedAt: 'updated_at',
     tableName: 'carts'
 });
+
+
 
 Cart.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 

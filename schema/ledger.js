@@ -33,3 +33,4 @@ const Legers=sequelize.define('Ledger',{
     timestamps:true,
     created_at:'created_at'
 })
+module.exports=Legers

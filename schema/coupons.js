@@ -40,3 +40,4 @@ const coupons=sequelize.define('coupons',{
     starts_at:'starts_at',
     ends_at:'ends_at'
 })
+module.exports=coupons

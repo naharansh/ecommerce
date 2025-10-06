@@ -3,8 +3,9 @@ const utils=require('util')
 const jsonWebToken=require('jsonwebtoken')
 exports.Protected = async (req, res, next) => {
     try {
-        // 1. Get token from cookie
+        // 1. Get token from ccookie
         const token = req.cookies?.token;
+        console.log(req.cookies)
         
         if (!token) {
             return res.status(401).json({

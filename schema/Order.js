@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 const User = require("./users");
 const Shops = require("./vendors");
-const Order = sequelize.define('cart_item', {
+const Order = sequelize.define('orders', {
     order_number: {
         type: DataTypes.STRING,
 
@@ -30,7 +30,7 @@ const Order = sequelize.define('cart_item', {
     metadata: {
         type: DataTypes.JSONB
     },
-    id: {
+   order_id: {
 
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4, // auto-generate UUID
@@ -43,13 +43,7 @@ const Order = sequelize.define('cart_item', {
             model: User,
             key: "user_id",
         },
-        validate: {
-            notSelf(value) {
-                if (value && value === this.user_id) {
-                    throw new Error("A category cannot be its own parent");
-                }
-            },
-        },
+      
     },
     vendor_id: {
         type: DataTypes.UUID,
@@ -58,13 +52,7 @@ const Order = sequelize.define('cart_item', {
             model: Shops,
             key: "vender_id",
         },
-        validate: {
-            notSelf(value) {
-                if (value && value === this.vendor_id) {
-                    throw new Error("A category cannot be its own parent");
-                }
-            },
-        },
+        
     }
 
 
@@ -73,5 +61,5 @@ const Order = sequelize.define('cart_item', {
     timestamps: true
 })
 Order.belongsTo(User,{foreignKey:'user_id',as:'uid' })
-Order.belongsTo(Shops,{foreignKey:'vendor_id',ad:'vid'})
+Order.belongsTo(Shops,{foreignKey:'vendor_id',as:'vid'})
 module.exports=Order
